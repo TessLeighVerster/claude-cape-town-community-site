@@ -12,10 +12,25 @@ Built from the Claude Design handoff (`project/`). Two outputs, one source.
 
 ## Publishing
 
-Drag the `site/` folder onto **app.netlify.com/drop** — it is live on a URL in
-about ten seconds, and you can point a custom domain at it from there. Cloudflare
-Pages and GitHub Pages take the same folder unchanged. Nothing to build, no
-dependencies, no server.
+The site lives at
+[github.com/TessLeighVerster/claude-cape-town-community-site](https://github.com/TessLeighVerster/claude-cape-town-community-site)
+and Netlify watches the `main` branch. **Push to `main` and Netlify rebuilds
+within about a minute.** No more drag-and-drop.
+
+To publish a change:
+
+```bash
+git add -A
+git commit -m "what you changed"
+git push
+```
+
+`netlify.toml` tells Netlify to publish the `site/` folder with no build step,
+so there is nothing to configure in the Netlify UI beyond linking the repo once.
+
+The originals in `project/uploads/` and `project/assets/gallery/` are gitignored
+— roughly 200 MB of 4000x6000 JPEGs that the site does not need. They exist on
+Tessa's Mac only, so keep them backed up somewhere else.
 
 ## How it is put together
 
