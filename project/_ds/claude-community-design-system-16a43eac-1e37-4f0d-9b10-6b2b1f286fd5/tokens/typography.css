@@ -1,0 +1,22 @@
+:root{
+/* families — display faces are the real Anthropic cuts (one weight each); Poppins + Lora are the deck's own body faces */
+--font-sans-display:'Anthropic Sans Display','Poppins',ui-sans-serif,system-ui,sans-serif; /* 600 only */
+--font-serif-display:'Anthropic Serif Display','Lora',Georgia,serif; /* 300 only */
+--font-sans:'Poppins',ui-sans-serif,system-ui,sans-serif;
+--font-serif:'Lora',Georgia,serif;
+--font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',monospace;
+/* scale (1280×720 slide basis; UI sizes at bottom) */
+--text-display-1:clamp(64px,9vw,104px); /* hero statements — serif display 300 */
+--text-display-2:56px; /* slide statements — serif display 300 */
+--text-heading:40px; /* slide headings — serif display 300 */
+--text-quote:30px; /* long statements — serif (Lora) 500 */
+--text-kicker:17px; /* sans display 600, above display lines */
+--text-body:17px;
+--text-small:14px;
+--text-label:11px; /* wordmark + labels — caps */
+/* details */
+--leading-display:1.08;
+--leading-body:1.55;
+--tracking-caps:.09em; /* CLAUDE COMMUNITY wordmark tracking */
+--tracking-tight:-0.01em;
+}

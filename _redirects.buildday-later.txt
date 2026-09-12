@@ -1,0 +1,15 @@
+# Claude Fable 5.1 Build Day — hidden section.
+#
+# The build day site is a Cloudflare Worker (it needs Cloudflare's key-value
+# store for demo submissions, ballots and admin logins, which is why it cannot
+# just be static files in this folder). This rule makes Netlify fetch it and
+# serve it under claudecapetown.com/buildday, so visitors never see the
+# Cloudflare address.
+#
+# The 200 at the end is what makes it a rewrite rather than a redirect: the
+# browser's address bar keeps saying claudecapetown.com.
+#
+# REPLACE the Cloudflare address below with the real one after running
+# `npm run deploy` in the claude-build-nights project.
+/buildday/*  https://claude-build-day-cpt.REPLACE-ME.workers.dev/buildday/:splat  200
+/buildday    https://claude-build-day-cpt.REPLACE-ME.workers.dev/buildday/  200

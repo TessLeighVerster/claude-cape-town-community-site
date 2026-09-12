@@ -1,0 +1,11 @@
+:root{
+--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;
+--radius-sm:8px;--radius-md:14px;--radius-lg:20px;--radius-pill:999px;--radius-sticker:18px;
+--border-hairline:1px solid var(--ink-12);
+--border-doodle:2px solid var(--ink); /* hand-drawn line-art weight */
+--shadow-card:0 1px 2px rgba(20,20,19,.06),0 6px 20px rgba(20,20,19,.07);
+--shadow-sticker:0 8px 22px rgba(20,20,19,.22); /* die-cut sticker lift */
+--shadow-pop:0 12px 32px rgba(20,20,19,.16);
+--ease-out:cubic-bezier(.22,1,.36,1); /* @kind other */
+--speed-quick:140ms; /* @kind other */
+}

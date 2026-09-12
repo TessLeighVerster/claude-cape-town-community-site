@@ -1,0 +1,7 @@
+# Netlify build settings for claudecapetown.com
+#
+# The site is plain static files — nothing to compile, no dependencies.
+# Netlify just publishes the site/ folder exactly as it is.
+
+[build]
+  publish = "site"

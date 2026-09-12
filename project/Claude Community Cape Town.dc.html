@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/styles.css">
+<script src="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+html,body{margin:0;padding:0;background:var(--ivory);}
+a{color:var(--coral-deep);}a:hover{color:var(--coral);}
+@keyframes cc-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes cc-spark{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.1) rotate(10deg)}}
+::selection{background:var(--coral-tint);}
+[data-cc-theme="dark"]{--ivory:#1a1917;--ivory-2:#242320;--white:#242320;--ink:#faf9f5;--ink-70:rgba(250,249,245,.72);--ink-55:rgba(250,249,245,.6);--ink-12:rgba(250,249,245,.14);--coral-tint:#3c2b22;--ivory-70:rgba(250,249,245,.75);}
+</style>
+</helmet>
+<div data-cc-theme="{{ theme }}" style="font-family:var(--font-sans);color:var(--ink);background:var(--ivory);min-height:100vh;transition:background .25s ease,color .25s ease;">
+
+<nav data-screen-label="Nav" style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:18px clamp(20px,5vw,64px);border-bottom:1px solid var(--ink-12);background:var(--ivory);">
+  <a href="#top" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);">
+    <img src="{{ sparkSrc }}" alt="" style="width:24px;height:24px;object-fit:contain;">
+    <span style="display:flex;flex-direction:column;line-height:1.2;">
+      <span style="font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">CLAUDE COMMUNITY</span>
+      <span style="font-family:var(--font-serif-display);font-weight:300;font-size:17px;">Cape Town</span>
+    </span>
+  </a>
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:14px;">
+    <a href="Events.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Events</a>
+    <a href="Gallery.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Gallery</a>
+    <a href="Demos.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Demos</a>
+    <a href="Speak.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Speak</a>
+    <button onClick="{{ toggleTheme }}" title="Switch theme" style="border:1.5px solid var(--ink-12);background:transparent;color:var(--ink);border-radius:999px;height:34px;padding:0 14px;font-family:var(--font-sans);font-size:13px;cursor:pointer;" style-hover="border-color:var(--coral);color:var(--coral);">{{ themeLabel }}</button>
+    <a href="Join.dc.html" style="text-decoration:none;">
+      <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Button" size="sm" hint-size="72px,34px">Join</x-import>
+    </a>
+  </div>
+</nav>
+
+<header id="top" data-screen-label="Hero" style="background:var(--coral);padding:clamp(56px,8vw,104px) clamp(20px,5vw,64px) clamp(40px,5vw,64px);">
+  <div style="max-width:1200px;margin:0 auto;display:flex;gap:56px;align-items:center;flex-wrap:wrap;">
+    <div style="flex:1 1 480px;min-width:0;">
+      <p style="margin:0 0 18px;font-family:var(--font-sans-display);font-weight:600;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:#faf9f5;">Cape Town's Claude community</p>
+      <h1 style="margin:0 0 24px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(44px,6.5vw,88px);line-height:1.08;color:#faf9f5;text-wrap:pretty;">Claude meetups across Cape Town</h1>
+      <p style="margin:0 0 32px;max-width:520px;font-size:17px;line-height:1.55;color:#faf9f5;">Attend meetups and workshops, learn from peers, and build things worth sharing with Claude and Claude Code — from the City Bowl to the Winelands.</p>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+        <a href="Events.dc.html" style="text-decoration:none;">
+          <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Button" variant="inverse" size="lg" hint-size="220px,52px">View upcoming events</x-import>
+        </a>
+        <a href="#newsletter" style="color:#faf9f5;font-family:var(--font-sans-display);font-weight:600;font-size:15px;text-decoration:underline;text-underline-offset:4px;">Join the community</a>
+      </div>
+    </div>
+    <div style="flex:0 1 300px;display:flex;flex-direction:column;align-items:center;margin:0 auto;">
+      <img src="assets/spark-ivory.png" alt="" style="width:140px;height:140px;object-fit:contain;animation:cc-spark 5s ease-in-out infinite;">
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:56px auto 0;border-top:1px solid rgba(250,249,245,.3);padding-top:32px;display:flex;gap:clamp(24px,4vw,56px);align-items:center;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <img src="assets/icon-highfive.svg" alt="" style="width:44px;height:44px;">
+      <span style="font-family:var(--font-sans-display);font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#faf9f5;">Meetup</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <img src="assets/icon-conversation.svg" alt="" style="width:44px;height:44px;">
+      <span style="font-family:var(--font-sans-display);font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#faf9f5;">Conversation</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <img src="assets/icon-impactlab.svg" alt="" style="width:44px;height:44px;">
+      <span style="font-family:var(--font-sans-display);font-weight:600;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:#faf9f5;">Impact Lab</span>
+    </div>
+    <span style="font-size:14px;color:#faf9f5;">+ workshops, Claude &amp; Coffee, and Code with Claude</span>
+  </div>
+</header>
+
+<div data-screen-label="Ticker" style="overflow:hidden;background:var(--ivory);border-bottom:1px solid var(--ink-12);padding:16px 0;">
+  <div style="display:flex;width:max-content;animation:cc-marquee 28s linear infinite;">
+    <div style="display:flex;gap:32px;padding-right:32px;font-size:14px;color:var(--ink-70);white-space:nowrap;align-items:center;">
+      <span>Roamwork</span><span style="color:var(--coral);">●</span><span>Harrington Street</span><span style="color:var(--coral);">●</span><span>CBD</span><span style="color:var(--coral);">●</span><span>More venues coming soon</span><span style="color:var(--coral);">●</span><span>Roamwork</span><span style="color:var(--coral);">●</span><span>Harrington Street</span><span style="color:var(--coral);">●</span><span>CBD</span><span style="color:var(--coral);">●</span><span>More venues coming soon</span><span style="color:var(--coral);">●</span>
+    </div>
+    <div style="display:flex;gap:32px;padding-right:32px;font-size:14px;color:var(--ink-70);white-space:nowrap;align-items:center;">
+      <span>Roamwork</span><span style="color:var(--coral);">●</span><span>Harrington Street</span><span style="color:var(--coral);">●</span><span>CBD</span><span style="color:var(--coral);">●</span><span>More venues coming soon</span><span style="color:var(--coral);">●</span><span>Roamwork</span><span style="color:var(--coral);">●</span><span>Harrington Street</span><span style="color:var(--coral);">●</span><span>CBD</span><span style="color:var(--coral);">●</span><span>More venues coming soon</span><span style="color:var(--coral);">●</span>
+    </div>
+  </div>
+</div>
+
+<section data-screen-label="Why join" style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,64px);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <h2 style="margin:0 0 40px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(32px,4vw,44px);">Why join?</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;">
+      <div style="background:var(--white);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);">
+        <div style="font-size:26px;color:var(--coral);margin-bottom:14px;">◉</div>
+        <h3 style="margin:0 0 8px;font-family:var(--font-sans-display);font-weight:600;font-size:17px;">Real community</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Meet developers, founders, and creators in person — people who build with AI, in your city.</p>
+      </div>
+      <div style="background:var(--white);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);">
+        <div style="font-size:26px;color:var(--coral);margin-bottom:14px;">❋</div>
+        <h3 style="margin:0 0 8px;font-family:var(--font-sans-display);font-weight:600;font-size:17px;">Learn from peers</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">See how others use Claude and Claude Code in real workflows. Share tips, skills, and lessons learnt.</p>
+      </div>
+      <div style="background:var(--white);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);">
+        <div style="font-size:26px;color:var(--coral);margin-bottom:14px;">▲</div>
+        <h3 style="margin:0 0 8px;font-family:var(--font-sans-display);font-weight:600;font-size:17px;">Ship better work</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Get feedback on your projects, find collaborators, and ship higher quality work faster.</p>
+      </div>
+      <div style="background:var(--white);border-radius:14px;padding:28px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);">
+        <div style="font-size:26px;color:var(--coral);margin-bottom:14px;">⌘</div>
+        <h3 style="margin:0 0 8px;font-family:var(--font-sans-display);font-weight:600;font-size:17px;">Hands-on sessions</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Live workshops, demo nights, and build hours. Learn by doing, not by watching.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="community" data-screen-label="Find your community" style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,64px);background:var(--ivory-2);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <h2 style="margin:0 0 8px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(32px,4vw,44px);">Find your community</h2>
+    <p style="margin:0 0 40px;font-size:16px;color:var(--ink-70);">Four ways we gather, for every kind of builder.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(24px,3vw,40px);">
+      <div>
+        <p style="margin:0 0 10px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;color:var(--coral);">TALK</p>
+        <h3 style="margin:0 0 8px;font-family:var(--font-serif-display);font-weight:300;font-size:26px;">Conversations</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Open-format discussion. Bring questions, compare workflows, talk through what's working. The lowest-pressure way in.</p>
+      </div>
+      <div>
+        <p style="margin:0 0 10px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;color:var(--coral);">CONNECT</p>
+        <h3 style="margin:0 0 8px;font-family:var(--font-serif-display);font-weight:300;font-size:26px;">Meetups</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Talks, demos, and networking. See what Cape Town builders are shipping with Claude, then go meet them.</p>
+      </div>
+      <div>
+        <p style="margin:0 0 10px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;color:var(--coral);">BUILD</p>
+        <h3 style="margin:0 0 8px;font-family:var(--font-serif-display);font-weight:300;font-size:26px;">Workshops</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Laptops open, hands on keyboards. Learn by building and leave with something working.</p>
+      </div>
+      <div>
+        <p style="margin:0 0 10px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;color:var(--coral);">GIVE BACK</p>
+        <h3 style="margin:0 0 8px;font-family:var(--font-serif-display);font-weight:300;font-size:26px;">Impact Labs</h3>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:var(--ink-70);">Working sessions that point Claude at real community problems. Ship something that matters in an afternoon.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="events" data-screen-label="Upcoming events" style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,64px);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:40px;">
+      <div>
+        <h2 style="margin:0 0 8px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(32px,4vw,44px);">Upcoming meetups</h2>
+        <p style="margin:0;font-size:16px;color:var(--ink-70);">Join a meetup and connect with the community.</p>
+      </div>
+      <a href="Events.dc.html" style="font-family:var(--font-sans-display);font-weight:600;font-size:15px;color:var(--coral-deep);text-decoration:none;">View all events →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+      <a href="{{ lumaUrl }}" style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:14px;padding:24px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);text-decoration:none;color:var(--ink);" style-hover="box-shadow:0 2px 4px rgba(20,20,19,.08),0 12px 32px rgba(20,20,19,.12);">
+        <div style="flex:0 0 auto;width:64px;background:var(--coral);border-radius:10px;padding:10px 0;text-align:center;color:#faf9f5;">
+          <div style="font-family:var(--font-serif-display);font-weight:300;font-size:28px;line-height:1;">11</div>
+          <div style="font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">SEP</div>
+        </div>
+        <div style="min-width:0;">
+          <p style="margin:0 0 4px;font-size:12px;color:var(--ink-55);">Thu evening · In person</p>
+          <h3 style="margin:0 0 6px;font-family:var(--font-sans-display);font-weight:600;font-size:17px;">Claude Build with Fable 5.1</h3>
+          <p style="margin:0 0 10px;font-size:14px;line-height:1.5;color:var(--ink-70);">Laptops open. Build something with Fable 5.1 and leave with something to share.</p>
+          <span style="display:inline-block;font-size:12px;background:var(--coral-tint);border-radius:999px;padding:3px 12px;color:var(--ink);">Roamwork, Harrington Street</span>
+        </div>
+      </a>
+      <div style="display:flex;align-items:center;justify-content:center;border:2px dashed var(--ink-12);border-radius:14px;padding:24px;min-height:120px;">
+        <p style="margin:0;font-size:14px;color:var(--ink-55);text-align:center;">More events coming soon.<br>Watch this space.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="host" data-screen-label="Your host" style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,64px);background:var(--ivory-2);">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p style="margin:0 0 10px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;color:var(--coral);">YOUR HOST</p>
+    <h2 style="margin:0 0 40px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(32px,4vw,44px);">Hello, Cape Town</h2>
+    <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:var(--white);border-radius:14px;padding:32px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);max-width:560px;">
+      <image-slot id="host-tessa" shape="circle" src="assets/host-tessa.png" placeholder="Drop a headshot" style="width:104px;height:104px;flex:0 0 auto;"></image-slot>
+      <div style="min-width:200px;flex:1;">
+        <h3 style="margin:0 0 4px;font-family:var(--font-sans-display);font-weight:600;font-size:18px;">Tessa</h3>
+        <p style="margin:0 0 8px;font-size:13px;color:var(--coral-deep);">Claude Product Builder Leader</p>
+        <p style="margin:0 0 10px;font-size:14px;line-height:1.55;color:var(--ink-70);">Hosting Cape Town's Claude community.</p>
+        <a href="https://www.linkedin.com/in/tessa-verster/" title="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:var(--coral);color:#faf9f5;font-family:var(--font-sans-display);font-weight:600;font-size:12px;text-decoration:none;" style-hover="background:var(--coral-deep);">in</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ showPixelScene }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Pixel scene" style="padding:clamp(40px,6vw,72px) clamp(20px,5vw,64px) 0;background:var(--ivory);">
+    <div ref="{{ sceneRef }}" style="position:relative;max-width:860px;height:220px;margin:0 auto;overflow:hidden;">
+      <div style="position:absolute;left:0;right:0;bottom:0;height:44px;background-image:radial-gradient(var(--ink-55) 1.1px,transparent 1.1px);background-size:7px 7px;opacity:.8;"></div>
+      <div style="position:absolute;left:0;right:0;bottom:44px;height:22px;background-image:radial-gradient(var(--ink-55) 1px,transparent 1px);background-size:11px 11px;opacity:.45;"></div>
+      <sc-for list="{{ berries }}" as="berry" hint-placeholder-count="4">
+        <img src="assets/strawberry.png" alt="" style="{{ berry.style }}">
+      </sc-for>
+      <img ref="{{ creatureRef }}" src="assets/creature.png" alt="" style="position:absolute;bottom:26px;left:0;width:clamp(96px,18vw,150px);image-rendering:pixelated;will-change:transform;">
+      <p style="position:absolute;top:0;right:0;margin:0;font-family:var(--font-mono);font-size:12px;color:var(--ink-55);">♪ Ocean DX — Dream Veil</p>
+    </div>
+  </div>
+</sc-if>
+
+<section id="newsletter" data-screen-label="Newsletter" style="padding:clamp(56px,7vw,88px) clamp(20px,5vw,64px);">
+  <div style="max-width:720px;margin:0 auto;text-align:center;">
+    <p style="margin:0 0 10px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;color:var(--coral);">BETWEEN MEETUPS</p>
+    <h2 style="margin:0 0 12px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(28px,3.5vw,40px);">Sign up for the monthly newsletter</h2>
+    <p style="margin:0 0 28px;font-size:15px;line-height:1.55;color:var(--ink-70);">One email a month — upcoming events, demos from the community, and what people are building.</p>
+    <sc-if value="{{ notSubscribed }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:12px;justify-content:center;align-items:flex-end;flex-wrap:wrap;">
+        <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Input" type="text" placeholder="Your name" onChange="{{ setName }}" style="width:min(180px,86vw);text-align:left;" hint-size="180px,42px"></x-import>
+        <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Input" type="email" placeholder="you@example.com" onChange="{{ setEmail }}" style="width:min(250px,86vw);text-align:left;" hint-size="250px,42px"></x-import>
+        <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Button" size="md" onClick="{{ subscribe }}" hint-size="140px,42px">Sign me up</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ subscribed }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0;font-family:var(--font-sans-display);font-weight:600;font-size:15px;color:var(--coral-deep);">You're on the list. See you at the next one.</p>
+    </sc-if>
+    <p style="margin:24px 0 0;font-size:14px;"><a href="{{ lumaUrl }}" style="color:var(--coral-deep);">Subscribe on Luma</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/" style="color:var(--coral-deep);">Follow on LinkedIn</a></p>
+  </div>
+</section>
+
+<section id="join" data-screen-label="Join CTA" style="background:var(--coral);padding:clamp(64px,8vw,112px) clamp(20px,5vw,64px);text-align:center;">
+  <img src="assets/spark-ivory.png" alt="" style="width:48px;height:48px;object-fit:contain;margin-bottom:24px;">
+  <h2 style="margin:0 auto 16px;max-width:640px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(36px,5vw,64px);line-height:1.08;color:#faf9f5;">Ready to join?</h2>
+  <p style="margin:0 auto 32px;max-width:520px;font-size:16px;line-height:1.55;color:#faf9f5;">Get access to events, workshops, resources, and a network of people building with Claude in Cape Town.</p>
+  <a href="Join.dc.html" style="text-decoration:none;">
+    <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Button" variant="inverse" size="lg" hint-size="200px,52px">Join the community</x-import>
+  </a>
+</section>
+
+<footer data-screen-label="Footer" style="background:#141413;color:#faf9f5;padding:clamp(48px,6vw,72px) clamp(20px,5vw,64px) 32px;">
+  <div style="max-width:1200px;margin:0 auto;display:flex;gap:clamp(32px,5vw,80px);flex-wrap:wrap;">
+    <div style="flex:1 1 280px;min-width:240px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <img src="assets/spark-ivory.png" alt="" style="width:20px;height:20px;object-fit:contain;">
+        <span style="font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">CLAUDE COMMUNITY CAPE TOWN</span>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.55;color:rgba(250,249,245,.75);">Cape Town's Claude community. Meetups, workshops, and a network of builders shipping with Claude and Claude Code across the Mother City.</p>
+    </div>
+    <div style="flex:0 1 auto;">
+      <h4 style="margin:0 0 14px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">COMMUNITY</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+        <a href="Events.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Events &amp; meetups</a>
+        <a href="Gallery.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Event gallery</a>
+        <a href="Demos.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Community demos</a>
+        <a href="Speak.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Become a speaker</a>
+        <a href="Join.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Join the community</a>
+      </div>
+    </div>
+    <div style="flex:0 1 auto;">
+      <h4 style="margin:0 0 14px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">AREAS</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+        <a href="Events.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">CBD — Roamwork</a>
+        <a href="Events.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Harrington Street</a>
+        <a href="Events.dc.html" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">More coming soon</a>
+      </div>
+    </div>
+    <div style="flex:0 1 auto;">
+      <h4 style="margin:0 0 14px;font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">RESOURCES</h4>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;">
+        <a href="https://claude.com/product/claude-code" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Claude Code</a>
+        <a href="https://docs.anthropic.com/" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Documentation</a>
+        <a href="https://www.anthropic.com/" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Anthropic</a>
+        <a href="https://clauders.com/" style="color:rgba(250,249,245,.75);text-decoration:none;" style-hover="color:#faf9f5;">Clauders network</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(250,249,245,.15);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:rgba(250,249,245,.75);">
+    <span>© 2026 Claude Community Cape Town. A community initiative. Not affiliated with Anthropic.</span>
+    <span style="font-family:var(--font-mono);">Built with Claude in Cape Town</span>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lumaUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://luma.com/claudecommunity&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Links&quot;},&quot;showPixelScene&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+class Component extends DCLogic {
+  state = {
+    subscribed: false,
+    theme: (typeof localStorage !== "undefined" && localStorage.getItem("cc-theme")) || "light",
+    berryVisible: [true, true, true, true],
+  };
+  berryX = [12, 38, 62, 86];
+  componentDidMount() {
+    this.x = 40; this.dir = 1; this.pauseUntil = 0; this.target = 0; this.last = performance.now();
+    const pickTarget = () => {
+      const vis = this.state.berryVisible;
+      let best = -1, bestD = 1e9;
+      for (let i = 0; i < 4; i++) if (vis[i]) { const d = Math.abs(this.berryX[i] - this.x); if (d < bestD) { bestD = d; best = i; } }
+      this.target = best;
+    };
+    pickTarget();
+    const tick = (now) => {
+      this.raf = requestAnimationFrame(tick);
+      const dt = Math.min(50, now - this.last) / 1000; this.last = now;
+      const el = this.creatureEl, scene = this.sceneEl;
+      if (!el || !scene) return;
+      const W = scene.clientWidth - 150;
+      if (now > this.pauseUntil) {
+        if (this.target === -1) {
+          this.setState({ berryVisible: [true, true, true, true] });
+          this.pauseUntil = now + 800;
+          this.target = -2;
+        } else if (this.target === -2) {
+          pickTarget();
+        } else {
+          const tx = this.berryX[this.target];
+          const d = tx - this.x;
+          this.dir = d >= 0 ? 1 : -1;
+          this.x += this.dir * 9 * dt;
+          if (Math.abs(d) < 1.2) {
+            const vis = this.state.berryVisible.slice();
+            vis[this.target] = false;
+            this.setState({ berryVisible: vis });
+            this.pauseUntil = now + 900;
+            this.target = vis.some(Boolean) ? -2 : -1;
+            if (this.target === -1) this.pauseUntil = now + 1600;
+          }
+        }
+      }
+      const px = (this.x / 100) * W;
+      const bob = now < this.pauseUntil ? 0 : Math.abs(Math.sin(now / 130)) * -4;
+      el.style.transform = `translateX(${px}px) translateY(${bob}px) scaleX(${this.dir > 0 ? -1 : 1})`;
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const dark = this.state.theme === "dark";
+    return {
+      lumaUrl: this.props.lumaUrl ?? "https://luma.com/claudecommunity",
+      showPixelScene: this.props.showPixelScene ?? true,
+      theme: this.state.theme,
+      themeLabel: dark ? "Light mode" : "Dark mode",
+      sparkSrc: dark ? "assets/spark-ivory.png" : "assets/spark-ink.png",
+      toggleTheme: () => {
+        const t = dark ? "light" : "dark";
+        try { localStorage.setItem("cc-theme", t); } catch (e) {}
+        this.setState({ theme: t });
+      },
+      subscribed: this.state.subscribed,
+      notSubscribed: !this.state.subscribed,
+      setName: (e) => { this.nlName = e.target.value; },
+      setEmail: (e) => { this.nlEmail = e.target.value; },
+      subscribe: () => {
+        const b = `Newsletter sign-up%0D%0A%0D%0AName: ${encodeURIComponent(this.nlName || "")}%0D%0AEmail: ${encodeURIComponent(this.nlEmail || "")}`;
+        window.location.href = `mailto:tessa@live.co.za?subject=${encodeURIComponent("Monthly newsletter sign-up — Claude Community Cape Town")}&body=${b}`;
+        this.setState({ subscribed: true });
+      },
+      berries: this.berryX.map((x, i) => ({
+        style: {
+          position: "absolute", bottom: "46px", left: x + "%", width: "34px",
+          imageRendering: "pixelated",
+          opacity: this.state.berryVisible[i] ? 1 : 0,
+          transition: "opacity .3s ease",
+        },
+      })),
+      sceneRef: (el) => { this.sceneEl = el; },
+      creatureRef: (el) => { this.creatureEl = el; },
+    };
+  }
+}
+</script>
+</body>
+</html>

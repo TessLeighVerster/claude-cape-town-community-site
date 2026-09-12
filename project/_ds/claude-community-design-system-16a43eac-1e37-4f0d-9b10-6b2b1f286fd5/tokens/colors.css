@@ -1,0 +1,28 @@
+:root{
+/* base */
+--coral:#d97757; /* Claude coral — primary brand color, slide + hero backgrounds */
+--coral-deep:#c5633f; /* pressed / hover on coral elements */
+--coral-tint:#f4ded2; /* soft clay tint — subtle fills on ivory */
+--ivory:#faf9f5; /* light background */
+--ivory-2:#f0eee5; /* alt surface on ivory */
+--ink:#141413; /* near-black text + line art */
+--white:#ffffff;
+--ink-70:rgba(20,20,19,.7);
+--ink-55:rgba(20,20,19,.55);
+--ink-12:rgba(20,20,19,.12);
+--ivory-70:rgba(250,249,245,.75);
+/* semantic */
+--bg-page:var(--ivory);
+--bg-brand:var(--coral);
+--surface-card:var(--white);
+--surface-alt:var(--ivory-2);
+--text-body:var(--ink);
+--text-muted:var(--ink-55);
+--text-on-brand:var(--ivory);
+--text-on-brand-strong:var(--ink);
+--border-subtle:var(--ink-12);
+--border-strong:var(--ink);
+--accent:var(--coral);
+--accent-hover:var(--coral-deep);
+--focus-ring:0 0 0 2px var(--ivory),0 0 0 4px var(--coral);
+}

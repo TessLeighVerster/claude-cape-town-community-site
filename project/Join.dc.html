@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/styles.css">
+<script src="_ds/claude-community-design-system-16a43eac-1e37-4f0d-9b10-6b2b1f286fd5/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;padding:0;background:var(--ivory);}
+a{color:var(--coral-deep);}a:hover{color:var(--coral);}
+::selection{background:var(--coral-tint);}
+[data-cc-theme="dark"]{--ivory:#1a1917;--ivory-2:#242320;--white:#242320;--ink:#faf9f5;--ink-70:rgba(250,249,245,.72);--ink-55:rgba(250,249,245,.6);--ink-12:rgba(250,249,245,.14);--coral-tint:#3c2b22;}
+</style>
+</helmet>
+<div data-cc-theme="{{ theme }}" style="font-family:var(--font-sans);color:var(--ink);background:var(--ivory);min-height:100vh;transition:background .25s ease,color .25s ease;">
+
+<nav style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:18px clamp(20px,5vw,64px);border-bottom:1px solid var(--ink-12);">
+  <a href="Claude Community Cape Town.dc.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);">
+    <img src="{{ sparkSrc }}" alt="" style="width:24px;height:24px;object-fit:contain;">
+    <span style="display:flex;flex-direction:column;line-height:1.2;">
+      <span style="font-family:var(--font-sans-display);font-weight:600;font-size:11px;letter-spacing:.09em;">CLAUDE COMMUNITY</span>
+      <span style="font-family:var(--font-serif-display);font-weight:300;font-size:17px;">Cape Town</span>
+    </span>
+  </a>
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;font-size:14px;">
+    <a href="Events.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Events</a>
+    <a href="Gallery.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Gallery</a>
+    <a href="Demos.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Demos</a>
+    <a href="Speak.dc.html" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--coral);">Speak</a>
+    <button onClick="{{ toggleTheme }}" style="border:1.5px solid var(--ink-12);background:transparent;color:var(--ink);border-radius:999px;height:34px;padding:0 14px;font-family:var(--font-sans);font-size:13px;cursor:pointer;" style-hover="border-color:var(--coral);color:var(--coral);">{{ themeLabel }}</button>
+    <a href="Join.dc.html" style="text-decoration:none;">
+      <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Button" size="sm" hint-size="72px,34px">Join</x-import>
+    </a>
+  </div>
+</nav>
+
+<header data-screen-label="Join header" style="background:var(--coral);padding:clamp(48px,6vw,88px) clamp(20px,5vw,64px);">
+  <div style="max-width:720px;margin:0 auto;text-align:center;">
+    <img src="assets/spark-ivory.png" alt="" style="width:56px;height:56px;object-fit:contain;margin-bottom:20px;">
+    <h1 style="margin:0 0 12px;font-family:var(--font-serif-display);font-weight:300;font-size:clamp(40px,5.5vw,72px);color:#faf9f5;">Join the community</h1>
+    <p style="margin:0;font-size:16px;line-height:1.6;color:#faf9f5;">Events, workshops, and a network of people building with Claude in Cape Town.</p>
+  </div>
+</header>
+
+<section data-screen-label="Join form" style="padding:clamp(40px,5vw,64px) clamp(20px,5vw,64px) clamp(56px,7vw,96px);">
+  <div style="max-width:720px;margin:0 auto;">
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <div style="background:var(--white);border-radius:14px;padding:32px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);display:flex;flex-direction:column;gap:16px;">
+        <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Input" label="Your name" type="text" placeholder="Your name" onChange="{{ setName }}" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Input" label="Email" type="email" placeholder="you@example.com" onChange="{{ setEmail }}" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Input" label="What do you build?" type="text" placeholder="(a demo, an artefact, a coded prototype)" onChange="{{ setAbout }}" hint-size="100%,68px"></x-import>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <x-import component-from-global-scope="ClaudeCommunityDesignSystem_16a43e.Button" size="md" onClick="{{ send }}" hint-size="180px,42px">Join the community</x-import>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="background:var(--white);border-radius:14px;padding:40px;box-shadow:0 1px 2px rgba(20,20,19,.05),0 8px 24px rgba(20,20,19,.07);text-align:center;">
+        <p style="margin:0 0 8px;font-family:var(--font-sans-display);font-weight:600;font-size:16px;color:var(--coral-deep);">Welcome. Send that email and you're in.</p>
+        <p style="margin:0;font-size:14px;color:var(--ink-70);">See you at the next meetup.</p>
+      </div>
+    </sc-if>
+    <p style="margin:28px 0 0;text-align:center;font-size:14px;"><a href="{{ lumaUrl }}" style="color:var(--coral-deep);">RSVP on Luma</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/" style="color:var(--coral-deep);">Follow on LinkedIn</a></p>
+  </div>
+</section>
+
+<footer style="background:#141413;color:rgba(250,249,245,.75);padding:24px clamp(20px,5vw,64px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;">
+  <span>© 2026 Claude Community Cape Town. A community initiative. Not affiliated with Anthropic.</span>
+  <a href="Claude Community Cape Town.dc.html" style="color:#faf9f5;">← Back home</a>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sent: false, theme: (typeof localStorage !== "undefined" && localStorage.getItem("cc-theme")) || "light" };
+  vals = { name: "", email: "", about: "" };
+  renderVals() {
+    const dark = this.state.theme === "dark";
+    return {
+      lumaUrl: this.props.lumaUrl ?? "https://luma.com/claudecommunity",
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      setName: (e) => { this.vals.name = e.target.value; },
+      setEmail: (e) => { this.vals.email = e.target.value; },
+      setAbout: (e) => { this.vals.about = e.target.value; },
+      send: () => {
+        const b = `New community sign-up%0D%0A%0D%0AName: ${encodeURIComponent(this.vals.name)}%0D%0AEmail: ${encodeURIComponent(this.vals.email)}%0D%0ABuilds: ${encodeURIComponent(this.vals.about)}`;
+        window.location.href = `mailto:tessa@live.co.za?subject=${encodeURIComponent("Join Claude Community Cape Town")}&body=${b}`;
+        this.setState({ sent: true });
+      },
+      theme: this.state.theme,
+      themeLabel: dark ? "Light mode" : "Dark mode",
+      sparkSrc: dark ? "assets/spark-ivory.png" : "assets/spark-ink.png",
+      toggleTheme: () => {
+        const t = dark ? "light" : "dark";
+        try { localStorage.setItem("cc-theme", t); } catch (e) {}
+        this.setState({ theme: t });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
