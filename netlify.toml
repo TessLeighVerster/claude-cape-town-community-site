@@ -4,4 +4,5 @@
 # Netlify just publishes the site/ folder exactly as it is.
 
 [build]
+  command = "true"
   publish = "site"
