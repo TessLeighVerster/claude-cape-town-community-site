@@ -25,8 +25,9 @@ git commit -m "what you changed"
 git push
 ```
 
-`netlify.toml` tells Netlify to publish the `site/` folder with no build step,
-so there is nothing to configure in the Netlify UI beyond linking the repo once.
+`netlify.toml` tells Netlify to publish the `site/` folder and runs `true` as
+the build command, which overrides a leftover `npm run build` in the dashboard.
+There is nothing to configure in the Netlify UI beyond linking the repo once.
 
 The originals in `project/uploads/` and `project/assets/gallery/` are gitignored
 — roughly 200 MB of 4000x6000 JPEGs that the site does not need. They exist on
