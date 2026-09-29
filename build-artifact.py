@@ -34,14 +34,8 @@ def data_uri(path: pathlib.Path) -> str:
 def main() -> None:
     html = (SITE / "index.html").read_text(encoding="utf-8")
 
-    # Keep <title>, the Google Fonts link and <style>; the Artifact host supplies
-    # the doctype, <head> boilerplate and <body> wrapper.
-    title = re.search(r"<title>.*?</title>", html, re.S).group(0)
-    fonts = re.search(r'<link rel="stylesheet" href="https://fonts\.googleapis[^>]*>', html).group(0)
-    style = re.search(r"<style>.*?</style>", html, re.S).group(0)
-    body = re.search(r"<body>(.*)</body>", html, re.S).group(1)
-
-    page = f"{title}\n{fonts}\n{style}\n{body}"
+    # The Artifact is the complete document; only the asset references change.
+    page = html
 
     # Replace every reference to a bundled asset with its data: URI. Longest
     # paths first so no path is a prefix of another that is replaced later.

@@ -12,26 +12,32 @@ Built from the Claude Design handoff (`project/`). Two outputs, one source.
 
 ## Publishing
 
-The site lives at
-[github.com/TessLeighVerster/claude-cape-town-community-site](https://github.com/TessLeighVerster/claude-cape-town-community-site)
-and Netlify watches the `main` branch. **Push to `main` and Netlify rebuilds
-within about a minute.** No more drag-and-drop.
+**The site is published as a Claude Artifact:**
+https://claude.ai/artifact/2pFrFbd8wBdCxi4azbRuSK
 
-To publish a change:
+To publish a change, edit `site/index.html`, rebuild the single-file bundle,
+and republish it to the same artifact URL from Claude Code:
 
 ```bash
-git add -A
-git commit -m "what you changed"
-git push
+python3 build-artifact.py        # regenerates dist/artifact.html
 ```
 
-`netlify.toml` tells Netlify to publish the `site/` folder and runs `true` as
-the build command, which overrides a leftover `npm run build` in the dashboard.
-There is nothing to configure in the Netlify UI beyond linking the repo once.
+then ask Claude to republish `dist/artifact.html` to the URL above. The
+artifact is private until it is shared from the page's Share menu.
 
-The originals in `project/uploads/` and `project/assets/gallery/` are gitignored
-— roughly 200 MB of 4000x6000 JPEGs that the site does not need. They exist on
-Tessa's Mac only, so keep them backed up somewhere else.
+### Netlify (on hold, 29 September 2026)
+
+The GitHub repo is still linked to the Netlify site `claude-capetown`, which
+serves claudecapetown.com. Every deploy fails with "unrecognized Git
+contributor": the free plan allows one contributor on a private repo and the
+Netlify team is not linked to the TessLeighVerster GitHub account. To revive
+it, either link the GitHub account under Team settings, Git contributors, or
+make the repo public. `netlify.toml` already overrides the dashboard's stale
+`npm run build` command, so once the contributor check passes it will deploy.
+
+A custom domain cannot point at a Claude Artifact. If claudecapetown.com
+should keep working, the site needs a static host such as Netlify or GitHub
+Pages.
 
 ## How it is put together
 
