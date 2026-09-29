@@ -2,6 +2,10 @@
 #
 # The site is plain static files — nothing to compile, no dependencies.
 # Netlify just publishes the site/ folder exactly as it is.
+#
+# The build command is a no-op: it overrides a leftover "npm run build" in
+# the Netlify dashboard, which fails because this site has no package.json.
 
 [build]
+  command = "true"
   publish = "site"
