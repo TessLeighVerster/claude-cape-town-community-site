@@ -12,32 +12,29 @@ Built from the Claude Design handoff (`project/`). Two outputs, one source.
 
 ## Publishing
 
-**The site is published as a Claude Artifact:**
-https://claude.ai/artifact/2pFrFbd8wBdCxi4azbRuSK
-
-To publish a change, edit `site/index.html`, rebuild the single-file bundle,
-and republish it to the same artifact URL from Claude Code:
+**claudecapetown.com is served by GitHub Pages.** The repo is public and
+`.github/workflows/pages.yml` publishes the `site/` folder on every push to
+`main`. Pushing is deploying:
 
 ```bash
-python3 build-artifact.py        # regenerates dist/artifact.html
+git add -A
+git commit -m "what you changed"
+git push
 ```
 
-then ask Claude to republish `dist/artifact.html` to the URL above. The
-artifact is private until it is shared from the page's Share menu.
+The workflow takes about a minute. `site/CNAME` and the repo's Pages settings
+both name `claudecapetown.com`; DNS at name.com points the apex at GitHub's
+four Pages IPs (185.199.108.153, 185.199.109.153, 185.199.110.153,
+185.199.111.153) and `www` at `tessleighverster.github.io`.
 
-### Netlify (on hold, 29 September 2026)
+**A copy also lives as a Claude Artifact** at
+https://claude.ai/artifact/2pFrFbd8wBdCxi4azbRuSK. Run
+`python3 build-artifact.py` and ask Claude to republish `dist/artifact.html`
+to that URL to refresh it.
 
-The GitHub repo is still linked to the Netlify site `claude-capetown`, which
-serves claudecapetown.com. Every deploy fails with "unrecognized Git
-contributor": the free plan allows one contributor on a private repo and the
-Netlify team is not linked to the TessLeighVerster GitHub account. To revive
-it, either link the GitHub account under Team settings, Git contributors, or
-make the repo public. `netlify.toml` already overrides the dashboard's stale
-`npm run build` command, so once the contributor check passes it will deploy.
-
-A custom domain cannot point at a Claude Artifact. If claudecapetown.com
-should keep working, the site needs a static host such as Netlify or GitHub
-Pages.
+**Netlify is retired.** The `claude-capetown` Netlify site never published a
+deploy (free-plan "unrecognized Git contributor" on the then-private repo).
+`netlify.toml` can be deleted once the Netlify site is removed.
 
 ## How it is put together
 
