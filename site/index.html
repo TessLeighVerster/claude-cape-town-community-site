@@ -919,6 +919,13 @@ a:hover{color:var(--coral)}
     });
 
     if (name === "events") showEvents(sub === "past" ? "past" : "upcoming");
+    if (name === "gallery") {
+      // The grid starts hidden, and Chrome does not re-evaluate lazy images
+      // when it is revealed, so switch them to eager once the view is shown.
+      Array.prototype.forEach.call(document.querySelectorAll("#gal-grid img[loading]"), function (img) {
+        img.removeAttribute("loading");
+      });
+    }
 
     var target = anchor && document.getElementById(anchor);
     if (target) {
