@@ -29,3 +29,11 @@ jobs:
           path: site
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: QA the live site
+        run: scripts/qa.sh --retries 18
