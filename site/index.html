@@ -372,6 +372,7 @@ a:hover{color:var(--coral)}
     <a class="navlink" href="#/gallery" data-nav="gallery">Gallery</a>
     <a class="navlink" href="#/demos" data-nav="demos">Demos</a>
     <a class="navlink" href="#/speak" data-nav="speak">Speak</a>
+    <a class="navlink" href="#/partner" data-nav="partner">Partner</a>
     <button class="theme-btn" id="theme-btn" type="button" title="Switch theme">Dark mode</button>
     <a class="ccb ccb-sm ccb-primary" href="#/join">Join</a>
   </div>
@@ -570,6 +571,7 @@ a:hover{color:var(--coral)}
           <a href="#/gallery">Event gallery</a>
           <a href="#/demos">Community demos</a>
           <a href="#/speak">Become a speaker</a>
+          <a href="#/partner">Partner with us</a>
           <a href="#/join">Join the community</a>
         </div>
       </div>
@@ -630,6 +632,14 @@ a:hover{color:var(--coral)}
             <span class="cardlink">See the photos →</span>
           </div>
         </a>
+      </div>
+
+      <div class="demo-cta" style="margin-top:40px">
+        <div>
+          <h2>Want to be a partner for our events?</h2>
+          <p>Venues, food and drink, prizes, sponsorship — we'd love to hear from you.</p>
+        </div>
+        <a class="ccb ccb-md ccb-inverse" href="#/partner">Apply here</a>
       </div>
     </div>
   </section>
@@ -745,6 +755,60 @@ a:hover{color:var(--coral)}
   </footer>
 </div>
 
+<!-- ══════════════════ PARTNER ══════════════════ -->
+<div class="view" data-view="partner" hidden>
+  <header class="page-head">
+    <div class="wrap-sm">
+      <p class="kicker">Partner with us</p>
+      <h1 class="h1">Want to be a partner for our events?</h1>
+      <p class="lede" style="line-height:1.6">Our meetups run on generous partners: rooms to gather in, food and drink, prizes for the builders, and sponsors who help us grow. Tell us what you have in mind.</p>
+    </div>
+  </header>
+  <section class="page-body">
+    <div class="wrap-sm">
+      <div class="blurb-grid">
+        <div class="card">
+          <p>Venues</p>
+          <p>Host a meetup, workshop or build night in your space.</p>
+        </div>
+        <div class="card">
+          <p>Food, drink and prizes</p>
+          <p>Feed the room or reward the best demo of the night.</p>
+        </div>
+        <div class="card">
+          <p>Sponsorship</p>
+          <p>Back the community and reach Cape Town's Claude builders.</p>
+        </div>
+      </div>
+      <form class="form-card" id="partner-form" novalidate>
+        <label class="cci"><span class="cci-label">Organisation</span>
+          <input class="cci-field" type="text" name="org" placeholder="Company or organisation name" autocomplete="organization" required></label>
+        <label class="cci"><span class="cci-label">Your name</span>
+          <input class="cci-field" type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
+        <label class="cci"><span class="cci-label">Email</span>
+          <input class="cci-field" type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label>
+        <label class="cci"><span class="cci-label">Phone or WhatsApp</span>
+          <input class="cci-field" type="tel" name="phone" placeholder="+27 82 123 4567" autocomplete="tel" inputmode="tel"></label>
+        <label class="cci"><span class="cci-label">Website</span>
+          <input class="cci-field" type="url" name="website" placeholder="https://" autocomplete="url"></label>
+        <label class="cci"><span class="cci-label">How would you like to partner?</span>
+          <input class="cci-field" type="text" name="how" placeholder="Venue, food and drink, prizes, sponsorship, something else" required></label>
+        <label class="cci"><span class="cci-label">Tell us more</span>
+          <textarea class="cci-field cci-area" name="message" rows="4" placeholder="What you have in mind, and anything we should know about your organisation"></textarea></label>
+        <div><button class="ccb ccb-md ccb-primary" type="submit">Apply to partner</button></div>
+      </form>
+      <div class="sent" id="partner-sent" hidden>
+        <p>Thanks — send that email and your application is in.</p>
+        <p>We'll be in touch before the next event.</p>
+      </div>
+    </div>
+  </section>
+  <footer class="footer-slim">
+    <span>© 2026 Claude Community Cape Town. A community initiative. Not affiliated with Anthropic.</span>
+    <a href="#/">← Back home</a>
+  </footer>
+</div>
+
 <!-- ══════════════════ JOIN ══════════════════ -->
 <div class="view" data-view="join" hidden>
   <header class="head-coral">
@@ -823,6 +887,7 @@ a:hover{color:var(--coral)}
     gallery: "Gallery — Claude Community Cape Town",
     demos: "Demos — Claude Community Cape Town",
     speak: "Speak — Claude Community Cape Town",
+    partner: "Partner — Claude Community Cape Town",
     join: "Join — Claude Community Cape Town"
   };
   var views = {};
@@ -924,6 +989,12 @@ a:hover{color:var(--coral)}
   wire("speak-form", "speak-sent",
     "Speaker pitch — Claude Community Cape Town", "New speaker pitch",
     [{ name: "name", label: "Name" }, { name: "email", label: "Email" }, { name: "topic", label: "Topic" }]);
+
+  wire("partner-form", "partner-sent",
+    "Partner application — Claude Community Cape Town", "New partner application",
+    [{ name: "org", label: "Organisation" }, { name: "name", label: "Contact" }, { name: "email", label: "Email" },
+     { name: "phone", label: "Phone" }, { name: "website", label: "Website" }, { name: "how", label: "How they want to partner" },
+     { name: "message", label: "More" }]);
 
   wire("join-form", "join-sent",
     "Application to join Claude Community Cape Town", "New community application",
