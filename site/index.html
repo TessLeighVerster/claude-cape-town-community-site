@@ -104,6 +104,8 @@ a:hover{color:var(--coral)}
   transition:border-color var(--speed-quick),box-shadow var(--speed-quick)}
 .cci-field::placeholder{color:var(--ink-55)}
 .cci-field:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(217,119,87,.22)}
+.cci-area{height:auto;min-height:112px;padding:12px 14px;resize:vertical;line-height:1.5}
+.form-note{margin:0 0 20px;font-size:14px;line-height:var(--leading-body);color:var(--ink-70)}
 
 /* ── Shared page furniture ───────────────────────────────────── */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
@@ -204,6 +206,19 @@ a:hover{color:var(--coral)}
 .event-card.lg .event-date .d{font-size:32px}
 .event-card.lg .event-body h2{margin:0 0 6px;font-family:var(--font-sans-display);font-weight:600;font-size:20px}
 .event-card.lg .event-body p{margin:0 0 12px;line-height:var(--leading-body)}
+
+/* ── Events: Upcoming / Past tabs ────────────────────────────── */
+.ev-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px}
+.ev-tab{height:36px;padding:0 18px;border-radius:var(--radius-pill);border:1.5px solid var(--ink-12);
+  background:transparent;color:var(--ink);font-family:var(--font-sans-display);font-weight:600;font-size:13px;
+  cursor:pointer;transition:background var(--speed-quick),border-color var(--speed-quick),color var(--speed-quick)}
+.ev-tab:hover{border-color:var(--coral);color:var(--coral)}
+.ev-tab[aria-selected="true"]{background:var(--coral);border-color:var(--coral);color:#faf9f5}
+.ev-tab:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.ev-list{display:flex;flex-direction:column;gap:16px}
+.event-card.past .event-date{background:var(--ivory-2);color:var(--ink)}
+.event-card.past .event-body h2{color:var(--ink)}
+.event-card .cardlink{font-family:var(--font-sans-display);font-weight:600;font-size:14px;color:var(--coral-deep)}
 
 /* ── Home: host ──────────────────────────────────────────────── */
 .host-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:var(--white);
@@ -462,18 +477,18 @@ a:hover{color:var(--coral)}
         <a href="#/events" style="font-family:var(--font-sans-display);font-weight:600;font-size:15px;text-decoration:none">View all events →</a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
-        <a class="event-card" href="https://luma.com/claudecommunity" target="_blank" rel="noopener">
+        <div class="placeholder" style="min-height:120px;padding:24px">
+          <p>The next meetup is being planned.<br><a href="#newsletter">Sign up for the newsletter</a> to hear first.</p>
+        </div>
+        <a class="event-card past" href="#/events/past">
           <div class="event-date"><div class="d">11</div><div class="m">SEP</div></div>
           <div class="event-body">
-            <p class="when">Fri evening · In person</p>
+            <p class="when">Most recent · Friday 11 September</p>
             <h3>Claude Build with Fable 5.1</h3>
-            <p>Laptops open. Build something with Fable 5.1 and leave with something to share.</p>
-            <span class="pill">Roamwork, Harrington Street</span>
+            <p>A build night at Roamwork with laptops open and Fable 5.1 on every screen.</p>
+            <span class="cardlink">See past events →</span>
           </div>
         </a>
-        <div class="placeholder" style="min-height:120px;padding:24px">
-          <p>More events coming soon.<br>Watch this space.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -536,7 +551,7 @@ a:hover{color:var(--coral)}
     <img src="assets/spark-ivory.png" alt="">
     <h2>Ready to join?</h2>
     <p>Get access to events, workshops, resources, and a network of people building with Claude in Cape Town.</p>
-    <a class="ccb ccb-lg ccb-inverse" href="#/join">Join the community</a>
+    <a class="ccb ccb-lg ccb-inverse" href="#/join">Apply to join</a>
   </section>
 
   <footer class="footer">
@@ -593,18 +608,37 @@ a:hover{color:var(--coral)}
     </div>
   </header>
   <section class="page-body">
-    <div class="wrap-md" style="display:flex;flex-direction:column;gap:16px">
-      <a class="event-card lg" href="https://luma.com/claudecommunity" target="_blank" rel="noopener">
-        <div class="event-date"><div class="d">11</div><div class="m">SEP</div></div>
-        <div class="event-body">
-          <p class="when">Friday · In person</p>
-          <h2>Claude Build with Fable 5.1</h2>
-          <p>Laptops open, hands on keyboards. Build something with Fable 5.1 and leave with something to share — a demo, an artefact, a coded prototype.</p>
-          <span class="pill">Roamwork, Harrington Street, CBD</span>
+    <div class="wrap-md">
+      <div class="ev-tabs" role="tablist" aria-label="Upcoming or past events">
+        <button class="ev-tab" type="button" role="tab" data-ev-tab="upcoming" aria-selected="true" aria-controls="ev-upcoming">Upcoming</button>
+        <button class="ev-tab" type="button" role="tab" data-ev-tab="past" aria-selected="false" aria-controls="ev-past">Past</button>
+      </div>
+
+      <div class="ev-list" id="ev-upcoming" role="tabpanel" data-ev-list="upcoming">
+        <div class="placeholder" style="padding:56px 24px">
+          <p style="font-size:15px;line-height:1.6">The next meetup is being planned.<br><a href="#newsletter">Sign up for the newsletter</a> to hear first, or <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">follow the Claude Community calendar on Luma</a>.</p>
         </div>
-      </a>
-      <div class="placeholder">
-        <p>More events coming soon.<br><a href="#newsletter">Sign up for the newsletter</a> to hear first.</p>
+      </div>
+
+      <div class="ev-list" id="ev-past" role="tabpanel" data-ev-list="past" hidden>
+        <div class="event-card lg past">
+          <div class="event-date"><div class="d">11</div><div class="m">SEP</div></div>
+          <div class="event-body">
+            <p class="when">Friday 11 September 2026 · In person</p>
+            <h2>Claude Build with Fable 5.1</h2>
+            <p>Laptops open, hands on keyboards. Cape Town builders spent the evening building with Fable 5.1 and left with something to share — a demo, an artefact, a coded prototype.</p>
+            <span class="pill">Roamwork, Harrington Street, CBD</span>
+          </div>
+        </div>
+        <a class="event-card lg past" href="#/gallery">
+          <div class="event-date"><div class="d">27</div><div class="m">AUG</div></div>
+          <div class="event-body">
+            <p class="when">Thursday 27 August 2026 · In person</p>
+            <h2>Claude Kickoff Build</h2>
+            <p>The first Claude Community Cape Town meetup: talks, demos, Claude Butter cookies and a room full of people building with Claude.</p>
+            <span class="cardlink">See the photos →</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -661,7 +695,7 @@ a:hover{color:var(--coral)}
   <section class="page-body">
     <div class="wrap-md">
       <div class="placeholder" style="padding:56px 24px;margin-bottom:24px">
-        <p style="font-size:15px;line-height:1.6">The first demos land after the 11 September build night.<br>Yours could be here.</p>
+        <p style="font-size:15px;line-height:1.6">Demos from the 11 September build night are being collected.<br>Yours could be here.</p>
       </div>
       <div class="demo-cta">
         <div>
@@ -726,23 +760,28 @@ a:hover{color:var(--coral)}
     <div class="wrap-sm">
       <img src="assets/spark-ivory.png" alt="">
       <h1>Join the community</h1>
-      <p>Events, workshops, and a network of people building with Claude in Cape Town.</p>
+      <p>Events, workshops, a WhatsApp group, and a network of people building with Claude in Cape Town.</p>
     </div>
   </header>
   <section class="section">
     <div class="wrap-sm">
+      <p class="form-note">Tell us a little about yourself. We review every application and add new members to the community WhatsApp group.</p>
       <form class="form-card" id="join-form" novalidate>
         <label class="cci"><span class="cci-label">Your name</span>
-          <input class="cci-field" type="text" name="name" placeholder="Your name" autocomplete="name"></label>
+          <input class="cci-field" type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
         <label class="cci"><span class="cci-label">Email</span>
           <input class="cci-field" type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label>
+        <label class="cci"><span class="cci-label">WhatsApp number</span>
+          <input class="cci-field" type="tel" name="phone" placeholder="+27 82 123 4567" autocomplete="tel" inputmode="tel" required></label>
         <label class="cci"><span class="cci-label">What do you build?</span>
           <input class="cci-field" type="text" name="about" placeholder="(a demo, an artefact, a coded prototype)"></label>
-        <div><button class="ccb ccb-md ccb-primary" type="submit">Join the community</button></div>
+        <label class="cci"><span class="cci-label">Why do you want to join the community?</span>
+          <textarea class="cci-field cci-area" name="why" rows="4" placeholder="A sentence or two is enough" required></textarea></label>
+        <div><button class="ccb ccb-md ccb-primary" type="submit">Apply to join</button></div>
       </form>
       <div class="sent" id="join-sent" hidden>
-        <p>Welcome. Send that email and you're in.</p>
-        <p>See you at the next meetup.</p>
+        <p>Thanks — send that email and your application is in.</p>
+        <p>We review every application and add new members to the WhatsApp group. See you at the next meetup.</p>
       </div>
       <p style="margin:28px 0 0;text-align:center;font-size:14px">
         <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">RSVP on Luma</a>
@@ -806,9 +845,11 @@ a:hover{color:var(--coral)}
     var anchor = null;
     var name = "home";
 
+    var sub = null;
     if (hash.indexOf("#/") === 0) {
-      var slug = hash.slice(2);
-      name = views[slug] ? slug : "home";
+      var parts = hash.slice(2).split("/");
+      name = views[parts[0]] ? parts[0] : "home";
+      sub = parts[1] || null;
     } else if (hash.length > 1) {
       // In-page anchor on the home view (#newsletter, #events, #host…)
       anchor = hash.slice(1);
@@ -821,6 +862,8 @@ a:hover{color:var(--coral)}
       else a.removeAttribute("aria-current");
     });
 
+    if (name === "events") showEvents(sub === "past" ? "past" : "upcoming");
+
     var target = anchor && document.getElementById(anchor);
     if (target) {
       target.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "start" });
@@ -828,6 +871,28 @@ a:hover{color:var(--coral)}
       window.scrollTo(0, 0);
     }
   }
+
+  /* ── Events: Upcoming / Past tabs ─────────────────────────── */
+  var evTabs = document.querySelectorAll("[data-ev-tab]");
+  var evLists = document.querySelectorAll("[data-ev-list]");
+
+  function showEvents(which) {
+    Array.prototype.forEach.call(evTabs, function (tab) {
+      tab.setAttribute("aria-selected", tab.getAttribute("data-ev-tab") === which ? "true" : "false");
+    });
+    Array.prototype.forEach.call(evLists, function (list) {
+      list.hidden = list.getAttribute("data-ev-list") !== which;
+    });
+  }
+
+  Array.prototype.forEach.call(evTabs, function (tab) {
+    tab.addEventListener("click", function () {
+      var which = tab.getAttribute("data-ev-tab");
+      showEvents(which);
+      // Keep the URL shareable without re-running the router (which scrolls to top).
+      history.replaceState(null, "", which === "past" ? "#/events/past" : "#/events");
+    });
+  });
 
   window.addEventListener("hashchange", route);
   route();
@@ -838,8 +903,11 @@ a:hover{color:var(--coral)}
     if (!form) return;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var email = form.querySelector('input[type="email"]');
-      if (email && !email.checkValidity()) { email.focus(); email.reportValidity(); return; }
+      if (!form.checkValidity()) {
+        var bad = form.querySelector(":invalid");
+        if (bad) { bad.focus(); bad.reportValidity(); }
+        return;
+      }
 
       var lines = fields.map(function (f) {
         var input = form.querySelector('[name="' + f.name + '"]');
@@ -867,8 +935,9 @@ a:hover{color:var(--coral)}
     [{ name: "name", label: "Name" }, { name: "email", label: "Email" }, { name: "topic", label: "Topic" }]);
 
   wire("join-form", "join-sent",
-    "Join Claude Community Cape Town", "New community sign-up",
-    [{ name: "name", label: "Name" }, { name: "email", label: "Email" }, { name: "about", label: "Builds" }]);
+    "Application to join Claude Community Cape Town", "New community application",
+    [{ name: "name", label: "Name" }, { name: "email", label: "Email" }, { name: "phone", label: "WhatsApp number" },
+     { name: "about", label: "Builds" }, { name: "why", label: "Why they want to join" }]);
 
   /* ── Gallery lightbox ─────────────────────────────────────── */
   var grid = document.getElementById("gal-grid");
