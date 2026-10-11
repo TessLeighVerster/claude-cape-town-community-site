@@ -558,7 +558,8 @@ a:hover{color:var(--coral)}
         </label>
         <button class="ccb ccb-md ccb-primary" type="submit">Sign me up</button>
       </form>
-      <p class="done" id="nl-done" hidden>You're on the list. See you at the next one.</p>
+      <p class="done" id="nl-done" hidden>Almost there — check your inbox and confirm your email to get on the list.</p>
+      <p class="done" id="nl-error" role="alert" hidden>That didn't go through. Try again, or <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">subscribe on Luma</a>.</p>
       <p style="margin:24px 0 0;font-size:14px">
         <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">Subscribe on Luma</a>
         &nbsp;·&nbsp;
@@ -1028,9 +1029,52 @@ a:hover{color:var(--coral)}
     });
   }
 
-  wire("nl-form", "nl-done",
-    "Monthly newsletter sign-up — Claude Community Cape Town", "Newsletter sign-up",
-    [{ name: "name", label: "Name" }, { name: "email", label: "Email" }]);
+  /* ── Newsletter → Kit ─────────────────────────────────────── */
+  // Posts to the Kit (ConvertKit) form's public subscription endpoint.
+  // Kit sends the confirmation email (double opt-in); no API key is needed.
+  var KIT_FORM_ID = "10030128";
+  var nlForm = document.getElementById("nl-form");
+  if (nlForm) {
+    nlForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!nlForm.checkValidity()) {
+        var bad = nlForm.querySelector(":invalid");
+        if (bad) { bad.focus(); bad.reportValidity(); }
+        return;
+      }
+      var btn = nlForm.querySelector('button[type="submit"]');
+      var errEl = document.getElementById("nl-error");
+      errEl.hidden = true;
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = "Signing up…";
+
+      var data = new FormData();
+      data.append("email_address", nlForm.querySelector('[name="email"]').value.trim());
+      data.append("fields[first_name]", nlForm.querySelector('[name="name"]').value.trim());
+
+      fetch("https://app.kit.com/forms/" + KIT_FORM_ID + "/subscriptions", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: data
+      }).then(function (r) { return r.json(); }).then(function (json) {
+        if (json && json.status === "success") {
+          nlForm.hidden = true;
+          var done = document.getElementById("nl-done");
+          done.hidden = false;
+          done.setAttribute("tabindex", "-1");
+          done.focus();
+        } else {
+          throw new Error((json && json.errors && json.errors.join(" ")) || "Subscription failed");
+        }
+      }).catch(function () {
+        errEl.hidden = false;
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = label;
+      });
+    });
+  }
 
   wire("speak-form", "speak-sent",
     "Speaker pitch — Claude Community Cape Town", "New speaker pitch",

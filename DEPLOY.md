@@ -85,3 +85,14 @@ and a wide shot of the room facing the opening slide), so they are in.
 5. **The Anthropic display fonts** are served from the site. Fine for a community
    page; if anyone asks you to stop, deleting the two `@font-face` blocks drops
    it cleanly to Poppins and Lora.
+
+## Newsletter sign-ups
+
+The home-page newsletter form posts straight to Kit (kit.com) — form
+**"Monthly newsletter (claudecapetown.com)"**, ID `10030128`, set in
+`KIT_FORM_ID` in `site/index.html`. Kit sends the double-opt-in confirmation
+email and redirects confirmed subscribers back to `claudecapetown.com/#/events`.
+No API key lives in the site. Subscribers appear under Subscribers in Kit.
+
+The Speak, Partner and Join forms still open the visitor's mail app
+(`mailto:`); they are not connected to Kit.
