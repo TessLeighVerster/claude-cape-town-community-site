@@ -9,6 +9,8 @@
 <meta property="og:description" content="Meetups, workshops, and a network of people building with Claude in Cape Town.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#d97757">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -227,8 +229,9 @@ a:hover{color:var(--coral)}
 @media (max-width:640px){.event-card.lg{flex-direction:column}.luma-embed{height:860px}}
 
 /* ── Home: host ──────────────────────────────────────────────── */
+.hosts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1000px}
 .host-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:var(--white);
-  border-radius:var(--radius-md);padding:32px;box-shadow:var(--shadow-card);max-width:560px}
+  border-radius:var(--radius-md);padding:32px;box-shadow:var(--shadow-card)}
 .host-card img{width:104px;height:104px;flex:0 0 auto;border-radius:50%;object-fit:cover}
 .host-card .who{min-width:200px;flex:1}
 .host-card h3{margin:0 0 4px;font-family:var(--font-sans-display);font-weight:600;font-size:18px}
@@ -517,15 +520,26 @@ a:hover{color:var(--coral)}
 
   <section class="section section-alt" id="host">
     <div class="wrap">
-      <p class="kicker">Your host</p>
+      <p class="kicker">Your hosts</p>
       <h2 class="h2" style="margin-bottom:40px">Hello, Cape Town</h2>
-      <div class="host-card">
-        <img src="assets/host-tessa.png" alt="Tessa, host of Claude Community Cape Town">
-        <div class="who">
-          <h3>Tessa</h3>
-          <p class="role">Claude Product Builder Leader</p>
-          <p class="bio">Hosting Cape Town's Claude community.</p>
-          <a class="in" href="https://www.linkedin.com/in/tessa-verster/" target="_blank" rel="noopener" aria-label="Tessa on LinkedIn">in</a>
+      <div class="hosts">
+        <div class="host-card">
+          <img src="assets/host-tessa.png" alt="Tessa, co-host of Claude Community Cape Town">
+          <div class="who">
+            <h3>Tessa</h3>
+            <p class="role">AI Enablement Lead @ Origami</p>
+            <p class="bio">Hosting Cape Town's Claude community.</p>
+            <a class="in" href="https://www.linkedin.com/in/tessa-verster/" target="_blank" rel="noopener" aria-label="Tessa on LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="host-card">
+          <img src="assets/host-daniel.jpg" alt="Daniel, co-host of Claude Community Cape Town">
+          <div class="who">
+            <h3>Daniel</h3>
+            <p class="role">SysDev &amp; DevSecOps @ JUMO</p>
+            <p class="bio">Co-hosting Cape Town's Claude community.</p>
+            <a class="in" href="https://www.linkedin.com/in/daniel-schwartz-3a4654101/" target="_blank" rel="noopener" aria-label="Daniel on LinkedIn">in</a>
+          </div>
         </div>
       </div>
     </div>
