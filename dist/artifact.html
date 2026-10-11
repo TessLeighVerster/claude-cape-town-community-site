@@ -219,6 +219,10 @@ a:hover{color:var(--coral)}
 .event-card.past .event-date{background:var(--ivory-2);color:var(--ink)}
 .event-card.past .event-body h2{color:var(--ink)}
 .event-card .cardlink{font-family:var(--font-sans-display);font-weight:600;font-size:14px;color:var(--coral-deep)}
+.event-card .ev-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 16px}
+.event-card .ev-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:0 0 20px}
+.luma-embed{display:block;width:100%;max-width:520px;height:800px;border:1px solid var(--ink-12);border-radius:10px;background:var(--ivory-2)}
+@media (max-width:640px){.event-card.lg{flex-direction:column}.luma-embed{height:860px}}
 
 /* ── Home: host ──────────────────────────────────────────────── */
 .host-card{display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:var(--white);
@@ -478,9 +482,24 @@ a:hover{color:var(--coral)}
         <a href="#/events" style="font-family:var(--font-sans-display);font-weight:600;font-size:15px;text-decoration:none">View all events →</a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
-        <div class="placeholder" style="min-height:120px;padding:24px">
-          <p>The next meetup is being planned.<br><a href="#newsletter">Sign up for the newsletter</a> to hear first.</p>
-        </div>
+        <a class="event-card" href="https://luma.com/claude-bkhq" target="_blank" rel="noopener">
+          <div class="event-date"><div class="d">22</div><div class="m">OCT</div></div>
+          <div class="event-body">
+            <p class="when">Thursday 22 October · 18:00–21:00 · The Animation School, Woodstock</p>
+            <h3>Claude in Animation &amp; VFX</h3>
+            <p>Short talks by SA animation and VFX professionals on how they use Claude in their pipelines, then open discussion.</p>
+            <span class="cardlink">RSVP on Luma →</span>
+          </div>
+        </a>
+        <a class="event-card" href="https://luma.com/claude-riwn" target="_blank" rel="noopener">
+          <div class="event-date"><div class="d">02</div><div class="m">DEC</div></div>
+          <div class="event-body">
+            <p class="when">Wednesday 2 December · 10:00–18:30 · AWS Skills Centre Cape Town</p>
+            <h3>Claude Impact Lab · Build Day</h3>
+            <p>A full-day civic hackathon with the AWS Skills Centre. Teams of 4–5, API credits for every participant, a Claude Max prize for the winners.</p>
+            <span class="cardlink">Apply on Luma →</span>
+          </div>
+        </a>
         <a class="event-card past" href="#/events/past">
           <div class="event-date"><div class="d">11</div><div class="m">SEP</div></div>
           <div class="event-body">
@@ -608,9 +627,29 @@ a:hover{color:var(--coral)}
       </div>
 
       <div class="ev-list" id="ev-upcoming" role="tabpanel" data-ev-list="upcoming">
-        <div class="placeholder" style="padding:56px 24px">
-          <p style="font-size:15px;line-height:1.6">The next meetup is being planned.<br><a href="#newsletter">Sign up for the newsletter</a> to hear first, or <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">follow the Claude Community calendar on Luma</a>.</p>
+        <div class="event-card lg">
+          <div class="event-date"><div class="d">22</div><div class="m">OCT</div></div>
+          <div class="event-body">
+            <p class="when">Thursday 22 October 2026 · 18:00–21:00 · In person</p>
+            <h2>Claude in Animation &amp; VFX</h2>
+            <p>An evening of short talks by SA animation and VFX professionals on how they use Claude in their pipelines — rigging setups, blendshape systems, render wrangling, the hundred small scripts that keep a show moving — followed by open discussion. For animators, VFX artists, TDs, pipeline engineers and students. No Claude experience needed.</p>
+            <div class="ev-meta"><span class="pill">The Animation School, 42 Searle St, Woodstock</span><span class="pill">Talks</span></div>
+            <div class="ev-actions"><a class="ccb ccb-md ccb-primary" href="https://luma.com/claude-bkhq" target="_blank" rel="noopener">RSVP on Luma</a></div>
+            <iframe class="luma-embed" src="https://luma.com/embed/event/evt-XM7jQoLVwmYudzk/simple" title="Register on Luma: Claude in Animation &amp; VFX" loading="lazy" allow="fullscreen; payment"></iframe>
+          </div>
         </div>
+        <div class="event-card lg">
+          <div class="event-date"><div class="d">02</div><div class="m">DEC</div></div>
+          <div class="event-body">
+            <p class="when">Wednesday 2 December 2026 · 10:00–18:30 · In person</p>
+            <h2>Claude Impact Lab · Build Day</h2>
+            <p>A full-day civic hackathon with the AWS Skills Centre. Teams of 4–5 take on a real problem from a subject-matter expert, build through the day with $100 in API credits per participant, and present to judges by evening. The winning team takes home a month of Claude Max 20x. Registration is application-based; places are confirmed by 14 November.</p>
+            <div class="ev-meta"><span class="pill">AWS Skills Centre Cape Town</span><span class="pill">Impact Lab</span><span class="pill">Apply by 14 Nov</span></div>
+            <div class="ev-actions"><a class="ccb ccb-md ccb-primary" href="https://luma.com/claude-riwn" target="_blank" rel="noopener">Apply on Luma</a></div>
+            <iframe class="luma-embed" src="https://luma.com/embed/event/evt-qXFplAYlFQ69EOi/simple" title="Register on Luma: Claude Impact Lab Build Day" loading="lazy" allow="fullscreen; payment"></iframe>
+          </div>
+        </div>
+        <p style="margin:8px 0 0;font-size:14px;color:var(--ink-55)">More coming. <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">Follow the Claude Community calendar on Luma</a> or <a href="#newsletter">sign up for the newsletter</a> to hear first.</p>
       </div>
 
       <div class="ev-list" id="ev-past" role="tabpanel" data-ev-list="past" hidden>
