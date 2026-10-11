@@ -53,6 +53,12 @@ def main() -> None:
         page = page.replace(ref, data_uri(asset))
         embedded += 1
 
+    # The Artifact viewer's CSP also blocks framed third-party pages, so drop
+    # the Luma event embeds; the "RSVP on Luma" links beside them still work.
+    page, dropped = re.subn(r'\s*<iframe class="luma-embed"[^>]*></iframe>', "", page)
+    if dropped:
+        print(f"  dropped {dropped} Luma embed(s) for the Artifact copy")
+
     leftover = re.findall(r'(?:src|href)="(assets/[^"]+)"', page)
     if leftover:
         sys.exit(f"unresolved asset references: {sorted(set(leftover))}")
