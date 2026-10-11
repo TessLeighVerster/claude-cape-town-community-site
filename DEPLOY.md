@@ -86,13 +86,23 @@ and a wide shot of the room facing the opening slide), so they are in.
    page; if anyone asks you to stop, deleting the two `@font-face` blocks drops
    it cleanly to Poppins and Lora.
 
-## Newsletter sign-ups
+## Forms: where submissions go
 
-The home-page newsletter form posts straight to Kit (kit.com) — form
-**"Monthly newsletter (claudecapetown.com)"**, ID `10030128`, set in
-`KIT_FORM_ID` in `site/index.html`. Kit sends the double-opt-in confirmation
-email and redirects confirmed subscribers back to `claudecapetown.com/#/events`.
-No API key lives in the site. Subscribers appear under Subscribers in Kit.
+No form on the site sends email from the visitor's mail app any more. All four
+post from the page with `fetch`; no API key lives in the site.
 
-The Speak, Partner and Join forms still open the visitor's mail app
-(`mailto:`); they are not connected to Kit.
+| Site form | Goes to | Notes |
+|---|---|---|
+| Newsletter (home) | Kit form **Monthly newsletter (claudecapetown.com)**, ID `10030128` | Double opt-in; Kit sends the confirmation email, then redirects to `claudecapetown.com/#/events`. Automation "Tag newsletter subscribers" adds the tag `newsletter`. |
+| Join | Kit form **Community application (claudecapetown.com)**, ID `10030161` | No confirmation email (auto-confirmed). Custom fields `whatsapp`, `builds`, `why_join`. Automation "Tag community applicants" adds the tag `applicant-join`. If the visitor ticks "I agree to receive the monthly newsletter", the page also posts them to the newsletter form above. |
+| Speak | Google Form **Speaker pitch — Claude Community Cape Town** | Responses in the form (Responses tab, or link to a Sheet). Email notification per response. |
+| Partner | Google Form **Partner application — Claude Community Cape Town** | Same as Speak. |
+
+**Sending the newsletter:** send every broadcast to the tag `newsletter`, never
+to all subscribers — Join applicants who did not tick the box are in Kit too
+and have not consented to marketing email.
+
+Form IDs and Google `entry.*` field IDs are constants at the bottom of
+`site/index.html`. If a Google Form question is added or re-created, its
+`entry` ID changes — re-read it from the live form's page source
+(`FB_PUBLIC_LOAD_DATA_`) and update the map.

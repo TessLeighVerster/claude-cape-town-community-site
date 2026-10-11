@@ -99,6 +99,8 @@ a:hover{color:var(--coral)}
 
 .cci{display:flex;flex-direction:column;gap:6px;font-family:var(--font-sans)}
 .cci-label{font-size:13px;font-weight:500;color:var(--ink)}
+.cci-check{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.45;color:var(--ink);cursor:pointer}
+.cci-check input{margin:3px 0 0;width:16px;height:16px;flex:none;accent-color:var(--coral)}
 .cci-field{height:42px;padding:0 14px;border-radius:var(--radius-md);border:1px solid var(--ink-12);
   background:var(--white);font:400 15px var(--font-sans);color:var(--ink);width:100%;
   transition:border-color var(--speed-quick),box-shadow var(--speed-quick)}
@@ -782,10 +784,11 @@ a:hover{color:var(--coral)}
         <label class="cci"><span class="cci-label">What would you talk about?</span>
           <input class="cci-field" type="text" name="topic" placeholder="One line is enough"></label>
         <div><button class="ccb ccb-md ccb-primary" type="submit">Raise your hand</button></div>
+        <p class="done" id="speak-error" role="alert" hidden>That didn't go through. Try again, or <a href="https://www.linkedin.com/in/tessa-verster/" target="_blank" rel="noopener">message Tessa on LinkedIn</a>.</p>
       </form>
       <div class="sent" id="speak-sent" hidden>
-        <p>Thanks — we'll be in touch before the next meetup.</p>
-        <p>Your email client should have opened with the details.</p>
+        <p>Thanks — your pitch is in.</p>
+        <p>We'll be in touch before the next meetup.</p>
       </div>
     </div>
   </section>
@@ -836,9 +839,10 @@ a:hover{color:var(--coral)}
         <label class="cci"><span class="cci-label">Tell us more</span>
           <textarea class="cci-field cci-area" name="message" rows="4" placeholder="What you have in mind, and anything we should know about your organisation"></textarea></label>
         <div><button class="ccb ccb-md ccb-primary" type="submit">Apply to partner</button></div>
+        <p class="done" id="partner-error" role="alert" hidden>That didn't go through. Try again, or <a href="https://www.linkedin.com/in/tessa-verster/" target="_blank" rel="noopener">message Tessa on LinkedIn</a>.</p>
       </form>
       <div class="sent" id="partner-sent" hidden>
-        <p>Thanks — send that email and your application is in.</p>
+        <p>Thanks — your application is in.</p>
         <p>We'll be in touch before the next event.</p>
       </div>
     </div>
@@ -872,10 +876,13 @@ a:hover{color:var(--coral)}
           <input class="cci-field" type="text" name="about" placeholder="(a demo, an artefact, a coded prototype)"></label>
         <label class="cci"><span class="cci-label">Why do you want to join the community?</span>
           <textarea class="cci-field cci-area" name="why" rows="4" placeholder="A sentence or two is enough" required></textarea></label>
+        <label class="cci-check"><input type="checkbox" name="newsletter" value="yes">
+          <span>I agree to receive the monthly newsletter — upcoming events, demos and what the community is building. Unsubscribe any time.</span></label>
         <div><button class="ccb ccb-md ccb-primary" type="submit">Apply to join</button></div>
+        <p class="done" id="join-error" role="alert" hidden>That didn't go through. Try again, or <a href="https://luma.com/claudecommunity" target="_blank" rel="noopener">find us on Luma</a>.</p>
       </form>
       <div class="sent" id="join-sent" hidden>
-        <p>Thanks — send that email and your application is in.</p>
+        <p>Thanks — your application is in.</p>
         <p>We review every application and add new members to the WhatsApp group. See you at the next meetup.</p>
       </div>
       <p style="margin:28px 0 0;text-align:center;font-size:14px">
@@ -897,7 +904,6 @@ a:hover{color:var(--coral)}
 (function () {
   "use strict";
 
-  var CONTACT = "tessa" + "@" + "live.co.za";
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   /* ── Theme ────────────────────────────────────────────────── */
@@ -1000,35 +1006,6 @@ a:hover{color:var(--coral)}
   window.addEventListener("hashchange", route);
   route();
 
-  /* ── Forms → mailto ───────────────────────────────────────── */
-  function wire(formId, doneId, subject, heading, fields) {
-    var form = document.getElementById(formId);
-    if (!form) return;
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (!form.checkValidity()) {
-        var bad = form.querySelector(":invalid");
-        if (bad) { bad.focus(); bad.reportValidity(); }
-        return;
-      }
-
-      var lines = fields.map(function (f) {
-        var input = form.querySelector('[name="' + f.name + '"]');
-        return f.label + ": " + (input ? input.value : "");
-      });
-      var body = heading + "\r\n\r\n" + lines.join("\r\n");
-      window.location.href = "mailto:" + CONTACT +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      form.hidden = true;
-      var done = document.getElementById(doneId);
-      done.hidden = false;
-      done.setAttribute("tabindex", "-1");
-      done.focus();
-    });
-  }
-
   /* ── Newsletter → Kit ─────────────────────────────────────── */
   // Posts to the Kit (ConvertKit) form's public subscription endpoint.
   // Kit sends the confirmation email (double opt-in); no API key is needed.
@@ -1076,20 +1053,122 @@ a:hover{color:var(--coral)}
     });
   }
 
-  wire("speak-form", "speak-sent",
-    "Speaker pitch — Claude Community Cape Town", "New speaker pitch",
-    [{ name: "name", label: "Name" }, { name: "email", label: "Email" }, { name: "topic", label: "Topic" }]);
+  /* ── Speak / Partner → Google Forms ──────────────────────── */
+  // Each site form posts straight to a Google Form's formResponse endpoint
+  // (no-cors, so the browser can't read the reply — a network failure is the
+  // only error we can detect). Responses land in the form's Sheet and the
+  // form owner gets an email per response if notifications are on.
+  function wireGoogleForm(formId, doneId, errorId, publicFormId, map) {
+    var form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        var bad = form.querySelector(":invalid");
+        if (bad) { bad.focus(); bad.reportValidity(); }
+        return;
+      }
+      var btn = form.querySelector('button[type="submit"]');
+      var errEl = document.getElementById(errorId);
+      errEl.hidden = true;
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = "Sending…";
 
-  wire("partner-form", "partner-sent",
-    "Partner application — Claude Community Cape Town", "New partner application",
-    [{ name: "org", label: "Organisation" }, { name: "name", label: "Contact" }, { name: "email", label: "Email" },
-     { name: "phone", label: "Phone" }, { name: "website", label: "Website" }, { name: "how", label: "How they want to partner" },
-     { name: "message", label: "More" }]);
+      var data = new FormData();
+      Object.keys(map).forEach(function (field) {
+        var input = form.querySelector('[name="' + field + '"]');
+        data.append("entry." + map[field], input ? input.value.trim() : "");
+      });
 
-  wire("join-form", "join-sent",
-    "Application to join Claude Community Cape Town", "New community application",
-    [{ name: "name", label: "Name" }, { name: "email", label: "Email" }, { name: "phone", label: "WhatsApp number" },
-     { name: "about", label: "Builds" }, { name: "why", label: "Why they want to join" }]);
+      fetch("https://docs.google.com/forms/d/e/" + publicFormId + "/formResponse", {
+        method: "POST", mode: "no-cors", body: data
+      }).then(function () {
+        form.hidden = true;
+        var done = document.getElementById(doneId);
+        done.hidden = false;
+        done.setAttribute("tabindex", "-1");
+        done.focus();
+      }).catch(function () {
+        errEl.hidden = false;
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = label;
+      });
+    });
+  }
+
+  wireGoogleForm("speak-form", "speak-sent", "speak-error",
+    "1FAIpQLSeNXryk3MagMWZH1J4kcJOTFldGqX17aKOpDQqDPzDNbGpUsQ",
+    { name: "2005313327", email: "1908383360", topic: "1196580280" });
+
+  wireGoogleForm("partner-form", "partner-sent", "partner-error",
+    "1FAIpQLScHiLlRrzdcGs9nMdKMrGbwuF21A0K7J457hC87EQnkj7GmGw",
+    { org: "321525456", name: "1241870961", email: "1999320620", phone: "1156286795",
+      website: "219640878", how: "109026469", message: "527276179" });
+
+  /* ── Join → Kit (community application) ──────────────────── */
+  // Every applicant is added to the Kit "Community application" form (tagged
+  // applicant-join by a Kit automation, no confirmation email). Only if they
+  // tick the newsletter box are they also added to the newsletter form, which
+  // sends the double-opt-in email and tags them "newsletter".
+  var KIT_JOIN_FORM_ID = "10030161";
+  var joinForm = document.getElementById("join-form");
+  if (joinForm) {
+    joinForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!joinForm.checkValidity()) {
+        var bad = joinForm.querySelector(":invalid");
+        if (bad) { bad.focus(); bad.reportValidity(); }
+        return;
+      }
+      var btn = joinForm.querySelector('button[type="submit"]');
+      var errEl = document.getElementById("join-error");
+      errEl.hidden = true;
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = "Sending…";
+
+      function v(name) { var el = joinForm.querySelector('[name="' + name + '"]'); return el ? el.value.trim() : ""; }
+      var email = v("email"), name = v("name");
+
+      var app = new FormData();
+      app.append("email_address", email);
+      app.append("fields[first_name]", name);
+      app.append("fields[whatsapp]", v("phone"));
+      app.append("fields[builds]", v("about"));
+      app.append("fields[why_join]", v("why"));
+
+      function kitPost(formId, body) {
+        return fetch("https://app.kit.com/forms/" + formId + "/subscriptions", {
+          method: "POST", headers: { "Accept": "application/json" }, body: body
+        }).then(function (r) { return r.json(); }).then(function (json) {
+          if (!json || json.status !== "success") throw new Error("Kit rejected the submission");
+        });
+      }
+
+      kitPost(KIT_JOIN_FORM_ID, app).then(function () {
+        if (!joinForm.querySelector('[name="newsletter"]').checked) return;
+        var nl = new FormData();
+        nl.append("email_address", email);
+        nl.append("fields[first_name]", name);
+        // Best effort: the application is already in, so a newsletter hiccup
+        // should not show as a failed application.
+        return kitPost(KIT_FORM_ID, nl).catch(function () {});
+      }).then(function () {
+        joinForm.hidden = true;
+        var done = document.getElementById("join-sent");
+        done.hidden = false;
+        done.setAttribute("tabindex", "-1");
+        done.focus();
+      }).catch(function () {
+        errEl.hidden = false;
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = label;
+      });
+    });
+  }
 
   /* ── Gallery lightbox ─────────────────────────────────────── */
   var grid = document.getElementById("gal-grid");
